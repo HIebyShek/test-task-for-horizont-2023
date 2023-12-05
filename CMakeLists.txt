@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.27)
-project(something DESCRIPTION "parsers constructor - parse everything" LANGUAGES CXX)
+project(test_task DESCRIPTION "parsers constructor - parse everything" LANGUAGES CXX)
 
 add_library(
-  something STATIC
-  src/something.cpp
+  test_task STATIC
+  src/test_task.cpp
 )
-target_compile_features(something PUBLIC cxx_std_20)
-target_include_directories(something PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(test_task PUBLIC cxx_std_17)
+target_include_directories(test_task PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 
 
@@ -26,13 +26,13 @@ if(BUILD_TESTS)
 
     add_executable(
       tests
-      tests/something.test.cpp
+      tests/test_task.test.cpp
       tests/main.test.cpp
     )
-    target_compile_features(tests PUBLIC cxx_std_20)
+    target_compile_features(tests PUBLIC cxx_std_17)
     target_link_libraries(tests PUBLIC doctest)
     target_link_libraries(tests PUBLIC sanitizer)
-    target_link_libraries(tests PUBLIC something)
+    target_link_libraries(tests PUBLIC test_task)
 
     add_test(NAME Tests COMMAND tests)
 endif()
