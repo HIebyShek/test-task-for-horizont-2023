@@ -7,7 +7,7 @@ add_library(
 )
 target_compile_features(test_task PUBLIC cxx_std_17)
 target_include_directories(test_task PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-
+target_compile_options(test_task PUBLIC -fno-exceptions)
 
 
 option(BUILD_TESTS "Enable building of tests" OFF)
@@ -21,6 +21,16 @@ if(ADDRESS_SANITIZER)
     target_link_options(sanitizer INTERFACE -fsanitize=address)
 endif()
 
+add_executable(
+  main 
+  src/main.cpp
+)
+target_compile_features(main PUBLIC cxx_std_17)
+target_include_directories(main PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_options(main PUBLIC -fno-exceptions)
+target_link_libraries(main PUBLIC sanitizer)
+target_link_libraries(main PUBLIC test_task)
+
 if(BUILD_TESTS)
     enable_testing()
 
@@ -33,6 +43,8 @@ if(BUILD_TESTS)
     target_link_libraries(tests PUBLIC doctest)
     target_link_libraries(tests PUBLIC sanitizer)
     target_link_libraries(tests PUBLIC test_task)
+    target_compile_definitions(tests PUBLIC DOCTEST_CONFIG_NO_EXCEPTIONS_BUT_WITH_ALL_ASSERTS)
+    target_compile_options(tests PUBLIC -fno-exceptions)
 
     add_test(NAME Tests COMMAND tests)
 endif()
