@@ -25,7 +25,7 @@ rm_all_substr(std::string str, const std::string_view substr)
 }
 
 std::vector<std::string>
-split(std::string&& str, const std::string_view delimiter)
+split(const std::string_view str, const std::string_view delimiter)
 {
     std::vector<std::string> ret;
 
