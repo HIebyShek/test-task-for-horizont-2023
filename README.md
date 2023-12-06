@@ -1,6 +1,15 @@
 # test-task-for-horizont-2023
 This is test task for R&amp;D Center Horizont completed in December 2023
 
+## Dependencies
+- clang
+- cmake
+- make [debug build]
+- ninja [release build]
+
+## Installing dependencies for Arch Linux
+    sudo pacman -S clang cmake make ninja
+  
 ## Clone
     git clone --recurse-submodules https://github.com/HIebyShek/test-task-for-horizont-2023.git test-task-cpp-dev-hleb-yakavinich
     cd test-task-cpp-dev-hleb-yakavinich
