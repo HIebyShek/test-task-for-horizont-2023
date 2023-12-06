@@ -1,6 +1,8 @@
+#include <optional>
 #include <test_task/test_task.hpp>
 
 #include <algorithm>
+#include <fstream>
 
 namespace test_task
 {
@@ -24,7 +26,7 @@ rm_all_substr(std::string str, const std::string_view substr)
 }
 
 std::vector<std::string>
-split(const std::string_view str, const std::string_view delimiter)
+split(std::string&& str, const std::string_view delimiter)
 {
     std::vector<std::string> ret;
 
@@ -61,6 +63,59 @@ case_insensitive_less(const std::string& lhs, const std::string& rhs)
 {
     return std::lexicographical_compare(
         lhs.begin(), lhs.end(), rhs.begin(), rhs.end(), details::ichar_less);
+}
+
+/**
+ * @brief read file data into buffer owned by std::unique_ptr
+ *
+ * @param filename
+ * @return std::unique_ptr<std::byte> with data if success, else with nullptr
+ */
+std::optional<std::string>
+read_file(const std::filesystem::path& filename)
+{
+    std::ifstream file(filename, std::ios::in);
+    if (not file.is_open())
+    {
+        return std::nullopt;
+    }
+
+    std::error_code err;
+    std::size_t file_size = std::filesystem::file_size(filename, err);
+    if (err.default_error_condition())
+    {
+        return std::nullopt;
+    }
+
+    std::string data(file_size, '\0');
+    file.read(data.data(), file_size);
+
+    return data;
+}
+
+/**
+ * @brief
+ *
+ * @param argc
+ * @param argv first arg is word for deleting,
+ *             second is input file,
+ *             third is output file
+ * @return std::optional<input_data>
+ */
+std::optional<input_data>
+parse_args(int argc, char** argv)
+{
+    if (argc != 1 + 3) // implicit first arg is path to executable
+    {
+        return std::nullopt;
+    }
+
+    input_data input;
+    input.word_for_deleting = *(argv + 1);
+    input.input_file = *(argv + 2);
+    input.output_file = *(argv + 3);
+
+    return input;
 }
 
 } // namespace test_task
