@@ -1,4 +1,3 @@
-#include <optional>
 #include <test_task/test_task.hpp>
 
 #include <algorithm>
@@ -65,12 +64,6 @@ case_insensitive_less(const std::string& lhs, const std::string& rhs)
         lhs.begin(), lhs.end(), rhs.begin(), rhs.end(), details::ichar_less);
 }
 
-/**
- * @brief read file data into buffer owned by std::unique_ptr
- *
- * @param filename
- * @return std::unique_ptr<std::byte> with data if success, else with nullptr
- */
 std::optional<std::string>
 read_file(const std::filesystem::path& filename)
 {
@@ -93,15 +86,6 @@ read_file(const std::filesystem::path& filename)
     return data;
 }
 
-/**
- * @brief
- *
- * @param argc
- * @param argv first arg is word for deleting,
- *             second is input file,
- *             third is output file
- * @return std::optional<input_data>
- */
 std::optional<input_data>
 parse_args(int argc, char** argv)
 {

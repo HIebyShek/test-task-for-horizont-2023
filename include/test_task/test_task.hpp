@@ -25,6 +25,13 @@ struct input_data
     std::string word_for_deleting;
 };
 
+/**
+ * @param argc
+ * @param argv first arg is word for deleting,
+ *             second is input file,
+ *             third is output file
+ * @return std::optional<input_data>
+ */
 std::optional<input_data> parse_args(int argc, char** argv);
 
 } // namespace test_task

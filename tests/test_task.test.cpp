@@ -1,11 +1,8 @@
 #include <doctest/doctest.h>
 
-#include <iterator>
 #include <test_task/test_task.hpp>
 
 #include <algorithm>
-
-#include <iostream>
 
 TEST_CASE("rm_all_substr_from")
 {
