@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.27)
-project(test_task DESCRIPTION "parsers constructor - parse everything" LANGUAGES CXX)
+project(test_task 
+        DESCRIPTION "test task for R&D Center Horizont
+                     compeleted in December 2023" 
+        LANGUAGES CXX)
 
 add_library(
   test_task STATIC
