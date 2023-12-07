@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.27)
 project(test_task 
-        DESCRIPTION "test task for R&D Center Horizont
+        DESCRIPTION "test task for R&D Center Horizont \
                      compeleted in December 2023" 
         LANGUAGES CXX)
 
@@ -18,7 +18,7 @@ option(BUILD_TESTS "Enable building of tests" OFF)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external)
 
 add_library(sanitizer INTERFACE)
-if(ADDRESS_SANITIZER)
+if(ADDRESS_SANITIZER AND UNIX)
     message(STATUS "Using address sanitizer")
     target_compile_options(sanitizer INTERFACE -fsanitize=address)
     target_link_options(sanitizer INTERFACE -fsanitize=address)
