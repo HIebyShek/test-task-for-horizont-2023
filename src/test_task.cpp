@@ -45,7 +45,7 @@ split(const std::string_view str, const std::string_view delimiter)
     return ret;
 }
 
-namespace details
+namespace
 {
 
 bool
@@ -55,13 +55,13 @@ ichar_less(char lhs, char rhs)
            std::tolower(static_cast<unsigned char>(rhs));
 }
 
-} // namespace details
+} // namespace
 
 bool
 case_insensitive_less(const std::string& lhs, const std::string& rhs)
 {
     return std::lexicographical_compare(
-        lhs.begin(), lhs.end(), rhs.begin(), rhs.end(), details::ichar_less);
+        lhs.begin(), lhs.end(), rhs.begin(), rhs.end(), ichar_less);
 }
 
 std::optional<std::string>
